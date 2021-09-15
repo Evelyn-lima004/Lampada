@@ -2,27 +2,29 @@
  
 const lampada = document.getElementById('lampada')
  
-function botoesLidaDesliga(estadoLiga, estadoDesliga){    
+const botoesLidaDesliga = (estadoLiga, estadoDesliga, estadoPiscar) =>{    
     const botaoLigar = document.getElementById('ligar')
     const botaoDesligar = document.getElementById('desligar')
+    const botaoPiscar = document.getElementById('piscar')
  
     botaoLigar.disabled = estadoLiga
     botaoDesligar.disabled = estadoDesliga
+    botaoPiscar.disabled = estadoPiscar
 }
  
-function lampadaQuebrada (){
+const lampadaQuebrada = () =>{
     const lampada = document.getElementById("lampada")
     return lampada.src.indexOf('quebrada') !== -1
 }
  
-function ligarLampada() {
+const ligarLampada = () => {
     if (!lampadaQuebrada()){
         lampada.src = "img/ligada.jpg"
         botoesLidaDesliga(true, false)
     }   
 }
  
-function desligarLampada() {
+const desligarLampada = () => {
  
     if (!lampadaQuebrada()){
         lampada.src = "img/desligada.jpg"
@@ -30,14 +32,47 @@ function desligarLampada() {
     }
 }
  
-function quebrarLampada() {
+const quebrarLampada = () => {
     lampada.src = "img/quebrada.jpg"
     botoesLidaDesliga(true, true)
+    botaoPiscar.classList.remove("green")
+    botaoPiscar.classList.remove("red")
 }
+
+const pararPiscar = () => {
+    clearInterval(document.getElementById('ligar'))
+    clearInterval(document.getElementById('desligar'))
+
+}
+
+const piscarlampada = () => {
+    const botaoPiscar = document.getElementById("piscar")
+
+    if (botaoPiscar.textContent == "Piscar") {
+        document.getElementById= (ligarLampada, 500)
+        document.getElementById = (desligarLampada, 1000)
+        botaoPiscar.textContent = "parar"
+        botaoPiscar.classList.remove("green")
+        botaoPiscar.classList.add("red")
+    } else {
+        pararPiscar()
+        botaoPiscar.textContent = "Piscar"
+        botaoPiscar.classList.remove("red")
+        botaoPiscar.classList.add("green")
+    }
+}
+
  
-//eventos
-document.getElementById('ligar').addEventListener("click", ligarLampada)
-document.getElementById('desligar').addEventListener("click", desligarLampada)
-document.getElementById('lampada').addEventListener("mouseover", ligarLampada)
-document.getElementById('lampada').addEventListener("mouseleave", desligarLampada)
-document.getElementById('lampada').addEventListener("dblclick", quebrarLampada)
+// eventos
+
+id("ligar").addEventListener("click", ligarLampada)
+
+id('desligar').addEventListener("click", desligarLampada)
+
+id("lampada").addEventListener("mouseover", ligarLampada)
+
+id("lampada").addEventListener("mouseleave", desligarLampada)
+
+id("lampada").addEventListener("dblclick", quebrarLampada)
+
+id("piscar").addEventListener("click", piscarlampada)
